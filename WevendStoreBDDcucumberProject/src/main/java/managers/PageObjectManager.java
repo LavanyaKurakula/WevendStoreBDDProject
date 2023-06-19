@@ -11,6 +11,11 @@ public class PageObjectManager {
 
 	private ReviewAndPaymentsPage reviewAndPaymentsPageObj;
 
+	private PayMethodSelectionPage payMethodSelectionPageObj;
+
+	private PaymentGatewayPage paymentGatewayPageObj;
+	private OrderSuccessPage orderSuccessPageObj;
+
 	public PageObjectManager(WebDriver driver) {
 
 		this.driver = driver;
@@ -23,6 +28,13 @@ public class PageObjectManager {
 
 	}
 
+	public PayMethodSelectionPage getPayMethodSelectionPageObj() {
+
+		return (payMethodSelectionPageObj == null) ? payMethodSelectionPageObj = new PayMethodSelectionPage(driver)
+				: payMethodSelectionPageObj;
+
+	}
+
 	public ReviewAndPaymentsPage getReviewAndPaymentsPageObj() {
 
 		return (reviewAndPaymentsPageObj == null) ? reviewAndPaymentsPageObj = new ReviewAndPaymentsPage(driver)
@@ -30,4 +42,17 @@ public class PageObjectManager {
 
 	}
 
+	public PaymentGatewayPage getPaymentGatewayPage() {
+
+		return (paymentGatewayPageObj == null) ? paymentGatewayPageObj = new PaymentGatewayPage(driver)
+				: paymentGatewayPageObj;
+
+	}
+	
+	public OrderSuccessPage getOrderSuccessPage() {
+
+		return (orderSuccessPageObj == null) ? orderSuccessPageObj = new OrderSuccessPage(driver)
+				: orderSuccessPageObj;
+
+	}
 }

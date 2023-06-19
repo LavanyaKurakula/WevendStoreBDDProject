@@ -14,6 +14,10 @@ import org.openqa.selenium.TakesScreenshot;
 //import org.testng.log4testng.Logger;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
 import Context.TestContext;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -22,20 +26,24 @@ import io.cucumber.java.Scenario;
 public class Hooks extends BaseClass {
 
 	TestContext testContext;
-
+	
 	public Hooks(TestContext context) {
 		testContext = context;
+		
 	}
 
-	@Before
+	@Before 
 	public void setUp() throws IOException {
-
+		extent = new ExtentReports();
+		 spark = new ExtentSparkReporter("Spark.html");
+		 extent.attachReporter(spark);
+		 
 		driver = testContext.getWebDriverManagerSetup().getDriver();
 		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
+		
 	}
-
-	@After(order = 0)
+	
+	@After(order=1)
 	public void end(Scenario sc) throws IOException {
 		if (sc.isFailed() == true) {
 
@@ -47,13 +55,13 @@ public class Hooks extends BaseClass {
 //				File srcFile= scrShot.getScreenshotAs(OutputType.FILE);
 //				File destFile= new File(FilePath);
 //				FileUtils.copyFile(srcFile, destFile);
-
+			
 		}
-
 	}
 
-	@After(order = 1)
+	@After(order = 2)	
 	public void quitDriver() {
+		extent.flush();
 		driver.quit();
 	}
 }

@@ -45,4 +45,9 @@ public class Helper {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.urlToBe(url));
 	}
+	
+	public void waitForTitle(String title) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.titleContains(title));
+	}
 }
